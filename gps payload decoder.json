@@ -1,0 +1,27 @@
+function Decoder(b, port) {
+  
+  var decoded = {};
+
+var lat = (b[0] | b[1]<<8 | b[2]<<16 | (b[2] & 0x80 ? 0xFF<<24 : 0)) / 10000;
+
+var lng = (b[3] | b[4]<<8 | b[5]<<16 | (b[5] & 0x80 ? 0xFF<<24 : 0)) / 10000;
+
+  //battery level
+  rawbatt = b[6] + b[7] * 256;
+  decoded.batterylvl = (rawbatt * (5 / 1023)).toFixed(2)
+
+return {
+
+location: {
+
+latitude: lat,
+
+longitude: lng
+
+},
+
+decoded
+
+};
+
+} 
